@@ -1,5 +1,8 @@
 import com.pgr301.exam.BankAccountApplication;
 import com.pgr301.exam.model.Account;
+import com.pgr301.exam.model.Transaction;
+import lombok.Data;
+import lombok.ToString;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,5 +25,13 @@ public class ModelTest {
         BigDecimal bd = new BigDecimal("0");
         assertThat(account.getBalance(), Matchers.comparesEqualTo(bd));
         assertEquals(account.getCurrency(), "NOK");
+    }
+
+    @Test
+    public void testTransaction() {
+
+        Transaction tx = new Transaction();
+        tx.setAmount(1);
+        assertEquals(tx.getAmount(), 0);
     }
 }
