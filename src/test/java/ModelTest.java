@@ -32,6 +32,6 @@ public class ModelTest {
 
         Transaction tx = new Transaction();
         tx.setAmount(1);
-        assertEquals(tx.getAmount(), 0);
+        assertEquals(tx.getAmount(), 1);
     }
 }
