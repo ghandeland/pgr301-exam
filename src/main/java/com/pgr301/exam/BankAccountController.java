@@ -28,6 +28,7 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     }
 
     @PostMapping(path = "/account/{fromAccount}/transfer/{toAccount}", consumes = "application/json", produces = "application/json")
+    @Timed
     public ResponseEntity transfer(@RequestBody Transaction tx, @PathVariable String fromAccount, @PathVariable String toAccount) {
         meterRegistry.counter("http_requests","endpoint", "transfer").increment();
 
@@ -40,6 +41,7 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
         }
     }
 
+    @Timed
     @PostMapping(path = "/account", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> updateAccount(@RequestBody Account a) {
         meterRegistry.counter("http_requests","endpoint", "account_update").increment();
