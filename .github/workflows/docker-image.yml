@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Deploy Docker image to ECR
 
 on:
   push:
@@ -7,12 +7,15 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  deoploy_docker_image:
     name: Push Docker image to ECR
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
+    
+    - name: Add commit SHA to env
+      run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
     
     - name: AWS credentials config
       uses: aws-actions/configure-aws-credentials@v1
@@ -30,10 +33,9 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPOSITORY }}
-        GIT_SHA: $(git rev-parse --short HEAD)
       run: |
         # Build a docker container and push it to ECR
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GIT_SHA .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GIT_SHA
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GIT_SHA"
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA"
