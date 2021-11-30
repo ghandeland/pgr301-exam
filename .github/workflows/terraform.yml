@@ -2,6 +2,9 @@ name: 'Terraform'
 
 on:
   push:
+    paths:
+    - "./infra/provider.tf"
+    - "./infra/ecr.tf"
     branches:
     - main
   pull_request:
