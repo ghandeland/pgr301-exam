@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "pgr301-2020-terraform"
+    bucket = var.s3_bucket_name
     key    = "tf/terraform.tfstate"
     region = "eu-west-1"
   }
