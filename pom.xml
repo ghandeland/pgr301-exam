@@ -8,10 +8,10 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>no.kristiania.pgr301</groupId>
+	<artifactId>exam</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>pgr301 Exam</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

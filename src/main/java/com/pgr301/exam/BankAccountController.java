@@ -30,8 +30,6 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     @PostMapping(path = "/account/{fromAccount}/transfer/{toAccount}", consumes = "application/json", produces = "application/json")
     @Timed
     public ResponseEntity transfer(@RequestBody Transaction tx, @PathVariable String fromAccount, @PathVariable String toAccount) {
-        meterRegistry.counter("http_requests","endpoint", "transfer").increment();
-
         try {
             bankService.transfer(tx, fromAccount, toAccount);
             return ResponseEntity.ok("Transfer successful");
@@ -44,8 +42,6 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     @Timed
     @PostMapping(path = "/account", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> updateAccount(@RequestBody Account a) {
-        meterRegistry.counter("http_requests","endpoint", "account_update").increment();
-
         try {
             bankService.updateAccount(a);
             return new ResponseEntity(a, HttpStatus.OK);
@@ -58,8 +54,6 @@ public class BankAccountController implements ApplicationListener<ApplicationRea
     @Timed
     @GetMapping(path = "/account/{accountId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> balance(@PathVariable String accountId) {
-        meterRegistry.counter("http_requests", "endpoint", "account_balance").increment();
-
         try {
             Account account = ofNullable(bankService.getAccount(accountId)).orElseThrow(AccountNotFoundException::new);
             return new ResponseEntity<>(account, HttpStatus.OK);
