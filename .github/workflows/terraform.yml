@@ -47,7 +47,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const output = `#### TERRAFORM COMMAND STATUSES\`
+          const output = `#### TERRAFORM COMMAND STATUSES`
           #### Format and Style: \`${{ steps.fmt.outcome }}\`
           #### Init: \`${{ steps.init.outcome }}\`
           #### Validation: \`${{ steps.validate.outcome }}\`
